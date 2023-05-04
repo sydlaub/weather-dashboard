@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <!-- all content -->
+    <h1>WEATHER DASHBOARD</h1>
+
+
+    <div class="container-fluid">
+        <!-- div for search bar and search history  -->
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-3 colSearch">
+                <label>Search For a City:</label>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Detroit">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-search">Search</button>
+                    </div>
+                </div>
+
+                <div class="container cityHistory"></div>
+
+                <!-- div for display of current weather and 5 day forecast -->
+                <div class="col-12 col-md-9 col-lg-9 colWeatherDisplay">
+                    <div class="row currentForecast">
+                        <div class="card" style="max-width: 400px;">
+                            <h2 class="card-title cardTodayCityName"></h2>
+                            <h3 class="card-title cardTodayDate"></h3>
+                            <img class="weatherIcon"/>
+                            <p class="card-text cardTextToday"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- div for display of the 5 day forecast -->
+                <div class="row fiveDayForecast">
+                    <h2>Five Day Forcast:</h2>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</body>
+
+</html>
