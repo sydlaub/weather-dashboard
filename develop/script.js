@@ -9,12 +9,11 @@ $("#cardTodayDate").text(today.format('MMMM DD, YYYY'));
 
 
 // need to save the user search and store it to an array in local storage
-var cityHistory = JSON.parse(localStorage.getItem('city')) || [];
+ var cityHistory = JSON.parse(localStorage.getItem('city')) || []
 
 
 $('.btn-search').on("click", function (event) {
     event.preventDefault();
-    // weatherDisplay($(this))
     city = $(this).parent(".btnParent").siblings(".btnTextVal").val().trim();
     if (city === "") {
         return;
@@ -28,8 +27,36 @@ $('.btn-search').on("click", function (event) {
 
 })
 
+console.log(cityHistory)
+// need function to render the city searches as buttons 
+function createCityButtons (){
+    $(".cityHistory").empty()
+    $(cityHistory).each(function (i){
+        var historyBtn = $("<button>").text(cityHistory[i]).addClass("cityBtn btn btn-light mb-2");
+        $(".cityHistory").append(historyBtn).append("<br />");
+    })
 
 
+    
+}
+
+// call function if there is information in local storage
+if (localStorage.getItem('city') !== null){
+    createCityButtons();
+}
+
+// create function to display weather when city button is clicked
+$(".cityBtn").on("click", "button", function(){
+    var cityName = $("button").text
+    weatherDisplay($(this));
+}
+
+)
+
+
+
+
+// weather display function
 function weatherDisplay(event) {
     var cityName = event.parent().siblings("input").val()
 
@@ -184,7 +211,7 @@ function weatherDisplay(event) {
    
     }
 
-// $(searchBtn).on("click", weatherDisplay());
 
-// add event listeners to form inputs and search history elements so that the user can interact with your weather dashboard
+// add event listeners to form inputs and search history elements so that the user can interact with weather dashboard
+
 
