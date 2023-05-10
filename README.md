@@ -7,11 +7,12 @@ The purpose of this application is to allow a user to search the weather for any
 
 ## Usage
 Links:
-- [Link to deployed site](https://sydlaub.github.io/work-day-scheduler/)
-- [Link to github repository](https://github.com/sydlaub/work-day-scheduler)
+- [Link to deployed site](https://sydlaub.github.io/weather-dashboard/)
+- [Link to github repository](https://github.com/sydlaub/weather-dashboard)
 
 The website can be viewed on a desktop web browser as shown below
-![Screenshot of deployed Password Generator site](./Assets/slaub-work-day-scheduler.png)
+![Screenshot of deployed Password Generator site](./develop/assets/weatherdashboard1.png)
+![](./develop/assets/weatherdash2.png)
 
 ## Credits
 Collaborators include teachers, TAs, tutors and fellow students in the Columbia University Full Stack Engineering Bootcamp 2023 Spring cohort.
