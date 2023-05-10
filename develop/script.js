@@ -78,6 +78,9 @@ function weatherDisplay(event) {
         $(".cardTodayCityName").text(response.name)
         var ul = $("<ul>")
 
+        // display the weather icon
+        var todayIcon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`)
+
         // current temp display
         var liTemp = $("<li>")
         liTemp.text("Temperature: " + response.main.temp + "°F")
@@ -91,7 +94,7 @@ function weatherDisplay(event) {
         liWind.text("Wind Speed: " + response.wind.speed + " mph")
 
 
-        ul.append(liTemp, liHumidity, liWind)
+        ul.append(todayIcon, liTemp, liHumidity, liWind)
 
         $(".cardTextToday").empty()
         $(".cardTextToday").append(ul)
@@ -108,7 +111,8 @@ function weatherDisplay(event) {
         var weatherObj = {
             futureTemp: [""],
             futureHumid: [""],
-            futureWind: [""]
+            futureWind: [""],
+            futureWeatherIcon: [""]
         };
         console.log(fiveDayData)
 
@@ -117,6 +121,7 @@ function weatherDisplay(event) {
             var fTemp = $("<li>")
             var fHumid = $("<li>")
             var fWind = $("<li>")
+            var fWeatherIcon = $("<img>")
             // get temps for the 5 days
             fTemp.text(fiveDayData[i].main.temp)
             fHumid.text(fiveDayData[i].main.humidity)
@@ -124,6 +129,7 @@ function weatherDisplay(event) {
             weatherObj.futureTemp.push(fTemp)
             weatherObj.futureHumid.push(fHumid)
             weatherObj.futureWind.push(fWind)
+            weatherObj.futureWeatherIcon.push(fWeatherIcon)
         }
         console.log(weatherObj)
         //display the 5 day forcast to the browser
@@ -131,7 +137,7 @@ function weatherDisplay(event) {
         // card one
         var ulFutureOne = $("<ul>")
         var cardDivOne = $("<div>");
-        cardDivOne.attr("class", "card text-black bg-primary mb-3")
+        cardDivOne.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivOne.attr("style", "max-width: 200px;");
 
         var tempOne = $("<li>")
@@ -142,8 +148,10 @@ function weatherDisplay(event) {
         
         windOne = $("<li>")
         windOne.text("Wind: " + weatherObj.futureWind[1][0].innerHTML + " mph")
+
+        iconOne = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[1].weather[0].icon}@2x.png`)
         
-        ulFutureOne.append(tempOne, humidOne, windOne)
+        ulFutureOne.append(iconOne, tempOne, humidOne, windOne)
         cardDivOne.append(ulFutureOne)
         $(".futureWeatherDisplay").empty()
         $(".futureWeatherDisplay").append(cardDivOne)
@@ -152,7 +160,7 @@ function weatherDisplay(event) {
         // card two
         var ulFutureTwo = $("<ul>")
         var cardDivTwo = $("<div>");
-        cardDivTwo.attr("class", "card text-black bg-primary mb-3")
+        cardDivTwo.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivTwo.attr("style", "max-width: 200px;");
 
         var tempTwo = $("<li>")
@@ -164,14 +172,16 @@ function weatherDisplay(event) {
         windTwo = $("<li>")
         windTwo.text("Wind: " + weatherObj.futureWind[2][0].innerHTML + " mph")
 
-        ulFutureTwo.append(tempTwo, humidTwo, windTwo)
+        iconTwo = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[2].weather[0].icon}@2x.png`)
+
+        ulFutureTwo.append(iconTwo, tempTwo, humidTwo, windTwo)
         cardDivTwo.append(ulFutureTwo)
         $(".futureWeatherDisplay").append(cardDivTwo)
 
         // card three
         var ulFutureThree = $("<ul>")
         var cardDivThree = $("<div>");
-        cardDivThree.attr("class", "card text-black bg-primary mb-3")
+        cardDivThree.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivThree.attr("style", "max-width: 200px;");
 
         var tempThree = $("<li>")
@@ -183,14 +193,16 @@ function weatherDisplay(event) {
         windThree = $("<li>")
         windThree.text("Wind: " + weatherObj.futureWind[3][0].innerHTML + " mph")
 
-        ulFutureThree.append(tempThree, humidThree, windThree)
+        iconThree = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[3].weather[0].icon}@2x.png`)
+
+        ulFutureThree.append(iconThree, tempThree, humidThree, windThree)
         cardDivThree.append(ulFutureThree)
         $(".futureWeatherDisplay").append(cardDivThree)
 
         // card four
         var ulFutureFour = $("<ul>")
         var cardDivFour = $("<div>");
-        cardDivFour.attr("class", "card text-black bg-primary mb-3")
+        cardDivFour.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivFour.attr("style", "max-width: 200px;");
 
         var tempFour = $("<li>")
@@ -202,7 +214,10 @@ function weatherDisplay(event) {
         windFour = $("<li>")
         windFour.text("Wind: " + weatherObj.futureWind[4][0].innerHTML + " mph")
 
-        ulFutureFour.append(tempFour, humidFour, windFour)
+        iconFour = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[4].weather[0].icon}@2x.png`)
+
+
+        ulFutureFour.append(iconFour, tempFour, humidFour, windFour)
         cardDivFour.append(ulFutureFour)
         $(".futureWeatherDisplay").append(cardDivFour)
 
