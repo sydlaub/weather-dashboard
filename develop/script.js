@@ -20,11 +20,11 @@ $('.btn-search').on("click", function (event) {
     };
     cityHistory.push(city);
     console.log(cityHistory)
-
+    
     // store in localStorage
     localStorage.setItem('city', JSON.stringify(cityHistory));
     weatherDisplay($(this));
-
+    
 })
 
 console.log(cityHistory)
@@ -35,23 +35,28 @@ function createCityButtons (){
         var historyBtn = $("<button>").text(cityHistory[i]).addClass("cityBtn btn btn-light mb-2");
         $(".cityHistory").append(historyBtn).append("<br />");
     })
-
-
+    
+    
+    // !!!!!!create function to display weather when city button is clicked
+    $(".cityBtn").on("click", function(event){
+        var city = $(historyBtn.text)
+        weatherDisplay($(this));
+    }
+    
+    )
     
 }
+
+// run create city buttons function on search button click
+$('.btn-search').on("click", function (event) {
+    createCityButtons()
+})
 
 // call function if there is information in local storage
 if (localStorage.getItem('city') !== null){
     createCityButtons();
 }
 
-// create function to display weather when city button is clicked
-$(".cityBtn").on("click", "button", function(){
-    var cityName = $("button").text
-    weatherDisplay($(this));
-}
-
-)
 
 
 
@@ -59,7 +64,7 @@ $(".cityBtn").on("click", "button", function(){
 // weather display function
 function weatherDisplay(event) {
     var cityName = event.parent().siblings("input").val()
-
+    
     var geo = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${key}`
     $.ajax({
         url: geo,
@@ -84,21 +89,21 @@ function weatherDisplay(event) {
         // current temp display
         var liTemp = $("<li>")
         liTemp.text("Temperature: " + response.main.temp + "°F")
-
+        
         // current humidity display
         var liHumidity = $("<li>")
         liHumidity.text("Humidity: " + response.main.humidity + "%")
-
+        
         // current wind speed display
         var liWind = $("<li>")
         liWind.text("Wind Speed: " + response.wind.speed + " mph")
-
-
+        
+        
         ul.append(todayIcon, liTemp, liHumidity, liWind)
-
+        
         $(".cardTextToday").empty()
         $(".cardTextToday").append(ul)
-
+        
         var requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.coord.lat}&lon=${response.coord.lon}&appid=${key}&units=imperial`
         return $.ajax({
             url: requestUrl,
@@ -115,7 +120,7 @@ function weatherDisplay(event) {
             futureWeatherIcon: [""]
         };
         console.log(fiveDayData)
-
+        
         // get weather data for the 5 days
         for (i = 8; i < fiveDayData.length; i += 8) {
             var fTemp = $("<li>")
@@ -133,13 +138,13 @@ function weatherDisplay(event) {
         }
         console.log(weatherObj)
         //display the 5 day forcast to the browser
-
+        
         // card one
         var ulFutureOne = $("<ul>")
         var cardDivOne = $("<div>");
         cardDivOne.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivOne.attr("style", "max-width: 200px;");
-
+        
         var tempOne = $("<li>")
         tempOne.text("Temperature: " + weatherObj.futureTemp[1][0].innerHTML + "°F")
         
@@ -148,83 +153,83 @@ function weatherDisplay(event) {
         
         windOne = $("<li>")
         windOne.text("Wind: " + weatherObj.futureWind[1][0].innerHTML + " mph")
-
+        
         iconOne = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[1].weather[0].icon}@2x.png`)
         
         ulFutureOne.append(iconOne, tempOne, humidOne, windOne)
         cardDivOne.append(ulFutureOne)
         $(".futureWeatherDisplay").empty()
         $(".futureWeatherDisplay").append(cardDivOne)
-
-
+        
+        
         // card two
         var ulFutureTwo = $("<ul>")
         var cardDivTwo = $("<div>");
         cardDivTwo.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivTwo.attr("style", "max-width: 200px;");
-
+        
         var tempTwo = $("<li>")
         tempTwo.text("Temperature: " + weatherObj.futureTemp[2][0].innerHTML + "°F")
-
+        
         humidTwo = $("<li>")
         humidTwo.text("Humidity: " + weatherObj.futureHumid[2][0].innerHTML + "%")
 
         windTwo = $("<li>")
         windTwo.text("Wind: " + weatherObj.futureWind[2][0].innerHTML + " mph")
-
+        
         iconTwo = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[2].weather[0].icon}@2x.png`)
-
+        
         ulFutureTwo.append(iconTwo, tempTwo, humidTwo, windTwo)
         cardDivTwo.append(ulFutureTwo)
         $(".futureWeatherDisplay").append(cardDivTwo)
-
+        
         // card three
         var ulFutureThree = $("<ul>")
         var cardDivThree = $("<div>");
         cardDivThree.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivThree.attr("style", "max-width: 200px;");
-
+        
         var tempThree = $("<li>")
         tempThree.text("Temperature: " + weatherObj.futureTemp[3][0].innerHTML + "°F")
-
+        
         humidThree = $("<li>")
         humidThree.text("Humidity: " + weatherObj.futureHumid[3][0].innerHTML + "%")
-
+        
         windThree = $("<li>")
         windThree.text("Wind: " + weatherObj.futureWind[3][0].innerHTML + " mph")
-
+        
         iconThree = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[3].weather[0].icon}@2x.png`)
-
+        
         ulFutureThree.append(iconThree, tempThree, humidThree, windThree)
         cardDivThree.append(ulFutureThree)
         $(".futureWeatherDisplay").append(cardDivThree)
-
+        
         // card four
         var ulFutureFour = $("<ul>")
         var cardDivFour = $("<div>");
         cardDivFour.attr("class", "card future-card text-black bg-primary mb-3")
         cardDivFour.attr("style", "max-width: 200px;");
-
+        
         var tempFour = $("<li>")
         tempFour.text("Temperature: " + weatherObj.futureTemp[4][0].innerHTML + "°F")
-
+        
         humidFour = $("<li>")
         humidFour.text("Humidity: " + weatherObj.futureHumid[4][0].innerHTML + "%")
-
+        
         windFour = $("<li>")
         windFour.text("Wind: " + weatherObj.futureWind[4][0].innerHTML + " mph")
-
+        
         iconFour = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.list[4].weather[0].icon}@2x.png`)
-
-
+        
+        
         ulFutureFour.append(iconFour, tempFour, humidFour, windFour)
         cardDivFour.append(ulFutureFour)
         $(".futureWeatherDisplay").append(cardDivFour)
 
 
     })
-   
-    }
+    
+}
 
 
 // add event listeners to form inputs and search history elements so that the user can interact with weather dashboard
