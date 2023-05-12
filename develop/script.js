@@ -15,16 +15,23 @@ $("#cardTodayDate").text(today.format('MMMM DD, YYYY'));
 $('.btn-search').on("click", function (event) {
     event.preventDefault();
     city = $(this).parent(".btnParent").siblings(".btnTextVal").val().trim();
+    console.log(city)
     if (city === "") {
         return;
     };
     cityHistory.push(city);
+
+    // !code to prevent pushing duplicate cities into local storage
+    // var cityHistory = JSON.parse(window.localStorage.getItem('city')) ;
+    // if (cityHistory.indexOf(city) == -1){
+    //     cityHistory.push(city);
+    //     window.localStorage.setItem('city', JSON.stringify(cityHistory))
+    // }
     console.log(cityHistory)
     
     // store in localStorage
     localStorage.setItem('city', JSON.stringify(cityHistory));
-    weatherDisplay($(this));
-    
+    weatherDisplay(city);
 })
 
 console.log(cityHistory)
@@ -34,18 +41,15 @@ function createCityButtons (){
     $(cityHistory).each(function (i){
         var historyBtn = $("<button>").text(cityHistory[i]).addClass("cityBtn btn btn-light mb-2");
         $(".cityHistory").append(historyBtn).append("<br />");
-    })
-    
-    
-    // !!!!!!create function to display weather when city button is clicked
-    $(".cityBtn").on("click", function(event){
-        var city = $(historyBtn.text)
-        weatherDisplay($(this));
-    }
-    
-    )
-    
+    })  
 }
+//create function to display weather when city button is clicked
+$(".cityHistory").on("click", ".cityBtn", function(event){
+    event.preventDefault();
+    console.log(event.target.innerText)
+    weatherDisplay(event.target.innerText);
+})
+
 
 // run create city buttons function on search button click
 $('.btn-search').on("click", function (event) {
@@ -59,12 +63,9 @@ if (localStorage.getItem('city') !== null){
 
 
 
-
-
 // weather display function
-function weatherDisplay(event) {
-    var cityName = event.parent().siblings("input").val()
-    
+function weatherDisplay(cityName) {
+    console.log(cityName)
     var geo = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${key}`
     $.ajax({
         url: geo,
@@ -85,7 +86,7 @@ function weatherDisplay(event) {
 
         // display the weather icon
         var todayIcon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`)
-
+        
         // current temp display
         var liTemp = $("<li>")
         liTemp.text("Temperature: " + response.main.temp + "°F")
@@ -173,7 +174,7 @@ function weatherDisplay(event) {
         
         humidTwo = $("<li>")
         humidTwo.text("Humidity: " + weatherObj.futureHumid[2][0].innerHTML + "%")
-
+        
         windTwo = $("<li>")
         windTwo.text("Wind: " + weatherObj.futureWind[2][0].innerHTML + " mph")
         
@@ -225,13 +226,14 @@ function weatherDisplay(event) {
         ulFutureFour.append(iconFour, tempFour, humidFour, windFour)
         cardDivFour.append(ulFutureFour)
         $(".futureWeatherDisplay").append(cardDivFour)
-
-
+        
+        
     })
     
 }
 
 
-// add event listeners to form inputs and search history elements so that the user can interact with weather dashboard
 
-
+// function to clear local storage on page refresh
+window.onbeforeunload = function (e) { localStorage.clear(); };
+onbeforeunload();
